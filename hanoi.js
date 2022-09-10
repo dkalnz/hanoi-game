@@ -12,6 +12,7 @@ let right = document.querySelector('#c');
 let qty = [7, 0, 0];
 const pegs = document.querySelectorAll('.pegbox');
 let pickedPegIdx = 0;
+const statusy = document.querySelector('.status');
 
 render();
 
@@ -21,6 +22,9 @@ function init() {
 		pegs.classList.add('pegbox');
 		pegs.id = abcUTF(i);
 		board.appendChild(pegs);
+		document.addEventListener('DOMContentLoaded', (event) => {
+			statusy.innerText = 'loading...';
+		});
 	}
 }
 function render() {
@@ -29,6 +33,13 @@ function render() {
 	right.innerText = qty[2];
 	for (i = 0; i < 3; i++) {
 		renderColor(i);
+	}
+	console.log(holdingCount);
+	statusy.innerText = 'u haz one!';
+	if (holdingCount > 0) {
+		statusy.id = 'fadein';
+	} else {
+		statusy.id = 'fadeout';
 	}
 }
 function renderColor(idx) {
@@ -65,7 +76,7 @@ function pickPeg(num) {
 		isPicking = false;
 		console.log(`picked! from peg ${pegs[num].id}`);
 	} else {
-		alert(`There are none!`);
+		alert(`u no can haz...  :(`);
 	}
 }
 function placePeg(num) {

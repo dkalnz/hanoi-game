@@ -33,7 +33,19 @@ h3 {
 .roundy {
 	box-sizing: border-box;
 	border-radius: 3vw;
-	border: 1px solid #d96685;
-	transition: border 100ms ease;
+	border: 3px solid #d96685;
+	transition: border 300ms ease;
 	transition: border-radius 100ms ease;
+}
+.status {
+	font-size: 1em;
+	letter-spacing: 0.5ch;
+}
+#fadein {
+	opacity: 1;
+	transition: opacity 500ms ease;
+}
+#fadeout {
+	opacity: 0;
+	transition: opacity 500ms ease;
 }
