@@ -18,18 +18,41 @@ h3 {
 	line-height: 1vh;
 	letter-spacing: 1ch;
 }
+board {
+	display: flex;
+	margin: 5vh auto;
+}
 .container {
 	display: flex;
 	justify-content: space-around;
 	height: 50vh;
 }
 .pegbox {
-	width: 30vw;
+	width: 27vw;
 	height: 100%;
+	margin: 1vw;
 	text-align: center;
 	font-weight: 900;
-	vertical-align: middle;
+	display: flex;
+	flex-direction: column-reverse;
+	align-items: center;
+	padding: 1vw;
+	/* align-content: center; */
 }
+.bases {
+	width: 23vw;
+	height: 2vw;
+	background-color: black;
+	border-radius: 2vw;
+}
+main {
+	display: flex;
+}
+/* body {
+	display: flex;
+	flex-direction: column;
+} */
+/* animations */
 .roundy {
 	box-sizing: border-box;
 	border-radius: 3vw;

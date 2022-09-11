@@ -10,10 +10,20 @@ let left = document.querySelector('#a');
 let mid = document.querySelector('#b');
 let right = document.querySelector('#c');
 let qty = [7, 0, 0];
+let Astack = [0, 1, 2, 3, 4, 5, 6];
+let Bstack = [];
+let Cstack = [];
 const pegs = document.querySelectorAll('.pegbox');
 let pickedPegIdx = 0;
-const statusy = document.querySelector('.status');
+const statusy = document.querySelector('.status'); //debugging object
+const basePlate = document.querySelector('.bases');
 
+// basePlate1.classList.add('bases');
+// const foot = document.querySelector('footer');
+// pegs[0].appendChild(basePlate1);
+// pegs[0].appendChild(basePlate1);
+
+initBases();
 render();
 
 function init() {
@@ -27,14 +37,17 @@ function init() {
 		});
 	}
 }
+function initBases() {
+	for (i = 0; i < 3; i++) {
+		let basePlates = document.createElement('div');
+		basePlates.classList.add('bases');
+		pegs[i].appendChild(basePlates);
+	}
+}
 function render() {
-	left.innerText = qty[0];
-	mid.innerText = qty[1];
-	right.innerText = qty[2];
 	for (i = 0; i < 3; i++) {
 		renderColor(i);
 	}
-	console.log(holdingCount);
 	statusy.innerText = 'u haz one!';
 	if (holdingCount > 0) {
 		statusy.id = 'fadein';
@@ -96,7 +109,7 @@ function iCanHaz(num) {
 	}
 }
 
-//Function whose sole purpose is to allow appending of a, b, c etc ID's to DOM created elements
+//Functions whose sole purpose is to allow appending of a, b, c etc ID's to DOM created elements
 function abcUTF(lowerCaseLetter) {
 	return String.fromCharCode(lowerCaseLetter + 97);
 }
