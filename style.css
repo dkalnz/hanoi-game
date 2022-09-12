@@ -45,9 +45,18 @@ board {
 	border-radius: 2vw;
 }
 .discs {
-	width: 21vw;
 	height: 2vw;
 	border-radius: 2vw;
+	margin-bottom: 0;
+	transition: margin-bottom 500ms ease;
+}
+.held {
+	margin-bottom: 50%;
+	transition: margin-bottom 1s ease;
+}
+footer {
+	display: flex;
+	justify-content: space-around;
 }
 main {
 	display: flex;
