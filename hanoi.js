@@ -18,6 +18,10 @@ let stack2 = [];
 let allStacks = [stack0, stack1, stack2];
 const pegs = document.querySelectorAll('.pegbox');
 let startSize = 0;
+const baseWidthFactor = 23;
+const discWidthFactor = 20;
+let discWidth = 21;
+let discWidthDivisor = 1;
 let pickedPegIdx = 0;
 const statusy = document.querySelector('.status'); //debugging object
 const basePlate = document.querySelector('.bases');
@@ -52,6 +56,12 @@ function initDiscs() {
 		discCreate.classList.add('discs');
 		discCreate.id = i;
 		pegs[0].appendChild(discCreate);
+		discWidthDivisor = discWidthFactor / startSize;
+		discWidth = discWidthFactor - discWidthDivisor * (i - 1);
+		console.log(
+			`created disc i${i} with factor of ${discWidthFactor} and divisor of ${discWidthDivisor} with width of ${discWidth}`
+		);
+		discCreate.style.width = discWidth + 'vw';
 		discCreate.style.backgroundColor = getRandomColor();
 	}
 	console.log(`Discs initiated, left stack has ${stack0}`);
@@ -75,7 +85,6 @@ pegs.forEach((el, num) => {
 		console.log(`clicked peg ${pegs[num].id}`);
 		if (isPicking) {
 			pickPeg(num);
-			//console.log(`You are holding: ${holding}`);
 			render();
 		} else {
 			placePeg(num);
@@ -106,12 +115,9 @@ function placePeg(num) {
 		allStacks[num].push(holding);
 		holding = 0;
 		isPicking = true;
-		console.log(`middle thing happened`);
-		// console.log(`result of myFunction is ${myFunction}`);
 	} else {
 		console.log(`can't move here, you're still holding ${holding}`);
 	}
-
 	console.log(
 		`left has ${allStacks[0]}, middle has ${allStacks[1]}, right has ${allStacks[2]}`
 	);
