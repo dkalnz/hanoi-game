@@ -15,8 +15,7 @@ h2 {
 h3 {
 	font-family: 'Raleway', sans-serif;
 	font-weight: 300;
-	line-height: 1vh;
-	letter-spacing: 1ch;
+	line-height: 1rem;
 }
 board {
 	display: flex;
@@ -45,6 +44,12 @@ board {
 	background-color: black;
 	border-radius: 2vw;
 }
+.discs {
+	width: 21vw;
+	height: 2vw;
+	/* background-color: blue; */
+	border-radius: 2vw;
+}
 main {
 	display: flex;
 }
@@ -53,6 +58,7 @@ main {
 	flex-direction: column;
 } */
 /* animations */
+
 .roundy {
 	box-sizing: border-box;
 	border-radius: 3vw;
@@ -61,8 +67,7 @@ main {
 	transition: border-radius 100ms ease;
 }
 .status {
-	font-size: 1em;
-	letter-spacing: 0.5ch;
+	font-size: em;
 }
 #fadein {
 	opacity: 1;
