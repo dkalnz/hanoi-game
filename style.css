@@ -47,7 +47,6 @@ board {
 .discs {
 	width: 21vw;
 	height: 2vw;
-	/* background-color: blue; */
 	border-radius: 2vw;
 }
 main {
