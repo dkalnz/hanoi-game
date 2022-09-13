@@ -19,7 +19,7 @@ h3 {
 	font-size: 1.5em;
 	line-height: 2rem;
 }
-board {
+.board {
 	display: flex;
 	margin: 5vh auto;
 }
@@ -65,7 +65,12 @@ board {
 }
 footer {
 	display: flex;
+	flex-direction: column;
+	align-items: center;
 	justify-content: space-around;
+}
+img {
+	padding: 3vh;
 }
 main {
 	display: flex;

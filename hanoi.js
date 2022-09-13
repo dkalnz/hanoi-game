@@ -27,6 +27,8 @@ let lastPegIdx = 0;
 const basePlate = document.querySelector('.bases');
 const pegs = document.querySelectorAll('.pegbox');
 const discs = document.querySelectorAll('.discs');
+const moveCount = document.querySelector('#moveCount');
+let moves = 0;
 
 initBases();
 let discCreate = null;
@@ -91,6 +93,7 @@ function render(discId) {
 	for (i = 0; i < 3; i++) {
 		renderColorCalc(i);
 	}
+	moveCount.innerText = moves;
 	checkWin();
 }
 function checkWin() {
@@ -144,10 +147,12 @@ function placePeg(num) {
 	if (myStack.length == 0) {
 		allStacks[num].push(holding);
 		holding = 0;
+		moves++;
 		isPicking = true;
 	} else if (allStacks[num].every(canPlace)) {
 		allStacks[num].push(holding);
 		holding = 0;
+		moves++;
 		isPicking = true;
 	} else {
 		alert(
