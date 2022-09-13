@@ -9,13 +9,15 @@ h3 {
 	line-height: 2vh;
 }
 h2 {
-	font-size: 2em;
+	font-size: 3em;
 	font-family: 'Pacifico', cursive;
+	font-weight: 300;
 }
 h3 {
 	font-family: 'Raleway', sans-serif;
 	font-weight: 300;
-	line-height: 1rem;
+	font-size: 1.5em;
+	line-height: 2rem;
 }
 board {
 	display: flex;
@@ -36,6 +38,7 @@ board {
 	flex-direction: column-reverse;
 	align-items: center;
 	padding: 1vw;
+	border-radius: 3vw;
 	/* align-content: center; */
 }
 .bases {
@@ -47,12 +50,18 @@ board {
 .discs {
 	height: 2vw;
 	border-radius: 2vw;
-	margin-bottom: 0;
-	transition: margin-bottom 500ms ease;
+	/* margin-bottom: 0; */
+	/* transition: margin-bottom 500ms ease; */
 }
 .held {
 	margin-bottom: 50%;
-	transition: margin-bottom 1s ease;
+	transition: margin-bottom 300ms ease-in-out;
+}
+.dropped {
+	animation-name: dropping;
+	animation-duration: 500ms;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in-out;
 }
 footer {
 	display: flex;
@@ -60,6 +69,14 @@ footer {
 }
 main {
 	display: flex;
+}
+@keyframes dropping {
+	from {
+		margin-bottom: 50%;
+	}
+	to {
+		margin-bottom: 0%;
+	}
 }
 /* body {
 	display: flex;

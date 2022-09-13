@@ -15,9 +15,9 @@ let stack0 = [];
 let stack1 = [];
 let stack2 = [];
 let allStacks = [stack0, stack1, stack2];
-const pegs = document.querySelectorAll('.pegbox');
-const discs = document.querySelectorAll('.discs');
 let startSize = 0;
+let winScore = 1000;
+let globalWin = false;
 const baseWidthFactor = 23;
 const discWidthFactor = 20;
 let discWidth = 21;
@@ -25,9 +25,8 @@ let discWidthDivisor = 1;
 let pickedPegIdx = 0;
 let lastPegIdx = 0;
 const basePlate = document.querySelector('.bases');
-let footy1 = document.querySelector('#foot1');
-let footy2 = document.querySelector('#foot2');
-let footy3 = document.querySelector('#foot3');
+const pegs = document.querySelectorAll('.pegbox');
+const discs = document.querySelectorAll('.discs');
 
 initBases();
 let discCreate = null;
@@ -65,36 +64,45 @@ function initDiscs() {
 		discCreate.style.width = discWidth + 'vw';
 		discCreate.style.backgroundColor = getRandomColor();
 	}
-	statusReport();
+	winScore = sumArray(stack0);
 }
-function statusReport() {
-	let lefty = allStacks[0]; //.slice().reverse();
-	let middley = allStacks[1]; //.slice().reverse();
-	let righty = allStacks[2]; //.slice().reverse();
-	footy1.innerText = lefty.join(' ');
-	footy2.innerText = middley.join(' ');
-	footy3.innerText = righty.join(' ');
+function sumArray(array) {
+	let sum = array.reduce(function (a, b) {
+		return a + b;
+	}, 0);
+	return sum;
 }
 function initRender() {
 	for (i = 0; i < 3; i++) {
-		renderColor(i);
+		renderColorCalc(i);
 	}
-	statusReport();
 }
 function render(discId) {
 	let myDisc = document.getElementById(`${discId}`);
 	if (holding > 0) {
 		myDisc.classList.add('held');
 	} else if (holding == 0) {
+		pegs[lastPegIdx].removeChild(myDisc);
+		pegs[pickedPegIdx].appendChild(myDisc);
 		myDisc.classList.remove('held');
+		myDisc.classList.add('dropped');
 	} else {
 	}
 	for (i = 0; i < 3; i++) {
-		renderColor(i);
+		renderColorCalc(i);
 	}
-	statusReport();
+	checkWin();
 }
-function renderColor(idx) {
+function checkWin() {
+	setTimeout(checkWin1s, 1000);
+}
+function checkWin1s() {
+	if (sumArray(allStacks[2]) == winScore) {
+		globalWin = true;
+		alert(`You won!!!`);
+	}
+}
+function renderColorCalc(idx) {
 	if (allStacks[idx].length == 0) {
 		pegs[idx].style.backgroundColor = '#536e61';
 	} else if (allStacks[idx].length < startSize) {
@@ -103,38 +111,34 @@ function renderColor(idx) {
 		pegs[idx].style.backgroundColor = '#169e5a';
 	}
 }
-function consolePegIdx() {
-	console.log(`pickedPegIndex is ${pickedPegIdx}`);
-	console.log(`lastPegIdx is ${lastPegIdx}`);
-}
 pegs.forEach((el, num) => {
 	el.addEventListener('click', () => {
 		if (isPicking) {
 			pickPeg(num);
 			pickedPegIdx = num;
-			consolePegIdx(); //debug
 			render(thisDisc);
 		} else {
 			lastPegIdx = pickedPegIdx;
 			pickedPegIdx = num;
 			placePeg(num);
-			consolePegIdx(); //debug
 			render(thisDisc);
 		}
 	});
 });
+//ACTION FOR PULLING A DISC
 function pickPeg(num) {
 	let myStack = allStacks[num];
 	let myStackLength = myStack.length;
 	if (myStackLength > 0) {
+		pickedPegIdx = num;
 		holding = allStacks[num].pop();
 		thisDisc = holding;
 		isPicking = false;
-		//console.log(`You are holding ${thisDisc}`);
 	} else {
-		console.log(`Can't pick this`);
+		alert(`There's nothing to pick!`);
 	}
 }
+//ACTION TO DO WHEN PLACING DISC
 function placePeg(num) {
 	let myStack = allStacks[num];
 	if (myStack.length == 0) {
@@ -142,22 +146,21 @@ function placePeg(num) {
 		holding = 0;
 		isPicking = true;
 	} else if (allStacks[num].every(canPlace)) {
-		console.log(
-			`allstacks[num] is ${
-				allStacks[num]
-			}, you were just holding ${holding} and canPlace returned ${allStacks[
-				num
-			].some(canPlace)}`
-		);
 		allStacks[num].push(holding);
 		holding = 0;
 		isPicking = true;
 	} else {
-		console.log(`can't move here, you're still holding ${holding}`);
+		alert(
+			`You can't move here. Cannot place any larger disk over a smaller one.`
+		);
 	}
 }
+//CHECKS MAIN GAME RULE FOR PLACING DISCS
 function canPlace(thisArraysBiggest) {
 	return holding > thisArraysBiggest;
+}
+function resetGame() {
+	globalWin = false;
 }
 //STYLE
 //	FUNCTIONS
@@ -170,9 +173,7 @@ function getRandomColor() {
 	let min = hexToDec('d14976');
 	let max = hexToDec('fa0556');
 	let rand = null;
-	//console.log(`min is ${min} and max is ${max}`);
 	rand = Math.floor(Math.random() * (max - min) + min).toString(16);
-	// console.log(rand);
 	return '#' + rand;
 	//13393533 min
 	//16385366 max
