@@ -103,13 +103,22 @@ function renderColor(idx) {
 		pegs[idx].style.backgroundColor = '#169e5a';
 	}
 }
+function consolePegIdx() {
+	console.log(`pickedPegIndex is ${pickedPegIdx}`);
+	console.log(`lastPegIdx is ${lastPegIdx}`);
+}
 pegs.forEach((el, num) => {
 	el.addEventListener('click', () => {
 		if (isPicking) {
 			pickPeg(num);
+			pickedPegIdx = num;
+			consolePegIdx(); //debug
 			render(thisDisc);
 		} else {
+			lastPegIdx = pickedPegIdx;
+			pickedPegIdx = num;
 			placePeg(num);
+			consolePegIdx(); //debug
 			render(thisDisc);
 		}
 	});
@@ -121,7 +130,7 @@ function pickPeg(num) {
 		holding = allStacks[num].pop();
 		thisDisc = holding;
 		isPicking = false;
-		console.log(`You are holding ${thisDisc}`);
+		//console.log(`You are holding ${thisDisc}`);
 	} else {
 		console.log(`Can't pick this`);
 	}
