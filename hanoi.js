@@ -28,6 +28,7 @@ const basePlate = document.querySelector('.bases');
 const pegs = document.querySelectorAll('.pegbox');
 const discs = document.querySelectorAll('.discs');
 const moveCount = document.querySelector('#moveCount');
+const resetButton = document.querySelector('#reset');
 let moves = 0;
 
 initBases();
@@ -54,7 +55,14 @@ function initBases() {
 	}
 }
 function initDiscs() {
-	startSize = prompt('How many can you play with?');
+	alert('Welcome to Watermelons: Tower of Hanoi.');
+	alert('Objective: Move the tower from the leftmost peg to the right.');
+	alert(
+		'Rules: you may only pick and place a single disc at a time. No larger-sized disc can be placed upon a smaller one.'
+	);
+	startSize = prompt(
+		'How many discs shall you play with? 3 is Beginner, 5 is Intermediate, 7 is Expert. 64 is the amount that, according to the Legend of Brahma, priests have been moving these discs forever. 1 move per second would algorithmically take 580 billion years. Choose wisely. 3, 5, or 7'
+	);
 	for (i = 1; i <= startSize; i++) {
 		stack0.push(i);
 		discCreate = document.createElement('div');
@@ -96,6 +104,8 @@ function render(discId) {
 	moveCount.innerText = moves;
 	checkWin();
 }
+//In order to allow animations and scripts to
+//finish before showing dialog in a win case
 function checkWin() {
 	setTimeout(checkWin1s, 1000);
 }
