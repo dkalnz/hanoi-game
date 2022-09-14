@@ -61,7 +61,7 @@ function initDiscs() {
 		'Rules: you may only pick and place a single disc at a time. No larger-sized disc can be placed upon a smaller one.'
 	);
 	startSize = prompt(
-		'How many discs shall you play with? 3 is Beginner, 5 is Intermediate, 7 is Expert. 64 is the amount that, according to the Legend of Brahma, priests have been moving these discs forever. 1 move per second would algorithmically take 580 billion years. Choose wisely. 3, 5, or 7'
+		'How many discs shall you play with? 3 is Beginner, 5 is Intermediate, 7 is Expert. 64 is Legendary (and will break my code... probably). According to the Legend of Brahma, priests have been moving these discs forever. 1 move per second of a 64 disc tower would algorithmically take 580 billion years. Choose wisely. 3, 5, or 7:'
 	);
 	for (i = 1; i <= startSize; i++) {
 		stack0.push(i);
@@ -113,6 +113,7 @@ function checkWin1s() {
 	if (sumArray(allStacks[2]) == winScore) {
 		globalWin = true;
 		alert(`You won!!!`);
+		reload();
 	}
 }
 function renderColorCalc(idx) {
@@ -124,6 +125,10 @@ function renderColorCalc(idx) {
 		pegs[idx].style.backgroundColor = '#169e5a';
 	}
 }
+resetButton.addEventListener('click', () => {
+	alert('You sink deeper into the purgatory with the priests of Brahma.');
+	location.reload();
+});
 pegs.forEach((el, num) => {
 	el.addEventListener('click', () => {
 		if (isPicking) {
