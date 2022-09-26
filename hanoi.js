@@ -39,10 +39,13 @@ initRender();
 
 function init() {
 	//INITIALIZE BOARD AND PEGS
+	const animDelayMs = [200, 0, 700];
 	for (let i = 0; i < 3; i++) {
 		let pegs = document.createElement('div');
 		pegs.classList.add('pegbox');
+		pegs.classList.add('slideUp');
 		pegs.id = abcUTF(i);
+		pegs.style.animationDelay = animDelayMs[i] + 'ms';
 		board.appendChild(pegs);
 	}
 }
@@ -55,14 +58,15 @@ function initBases() {
 	}
 }
 function initDiscs() {
-	alert('Welcome to Watermelons: Tower of Hanoi.');
-	alert('Objective: Move the tower from the leftmost peg to the right.');
-	alert(
-		'Rules: you may only pick and place a single disc at a time. No larger-sized disc can be placed upon a smaller one.'
-	);
-	startSize = prompt(
-		'How many discs shall you play with? 3 is Beginner, 5 is Intermediate, 7 is Expert. 64 is Legendary (and will break my code... probably). According to the Legend of Brahma, priests have been moving these discs forever. 1 move per second of a 64 disc tower would algorithmically take 580 billion years. Choose wisely. 3, 5, or 7:'
-	);
+	// alert('Welcome to Watermelons: Tower of Hanoi.');
+	// alert('Objective: Move the tower from the leftmost peg to the right.');
+	// alert(
+	// 	'Rules: you may only pick and place a single disc at a time. No larger-sized disc can be placed upon a smaller one.'
+	// );
+	// startSize = prompt(
+	// 	'How many discs shall you play with? 3 is Beginner, 5 is Intermediate, 7 is Expert. 64 is Legendary (and will break my code... probably). According to the Legend of Brahma, priests have been moving these discs forever. 1 move per second of a 64 disc tower would algorithmically take 580 billion years. Choose wisely. 3, 5, or 7:'
+	// );
+	startSize = 3;
 	for (i = 1; i <= startSize; i++) {
 		stack0.push(i);
 		discCreate = document.createElement('div');
@@ -96,24 +100,23 @@ function render(discId) {
 		pegs[pickedPegIdx].appendChild(myDisc);
 		myDisc.classList.remove('held');
 		myDisc.classList.add('dropped');
-	} else {
 	}
 	for (i = 0; i < 3; i++) {
 		renderColorCalc(i);
 	}
 	moveCount.innerText = moves;
-	checkWin();
+	waitTime(checkWin, 1000);
 }
 //In order to allow animations and scripts to
 //finish before showing dialog in a win case
-function checkWin() {
-	setTimeout(checkWin1s, 1000);
+function waitTime(f, timeMs) {
+	setTimeout(f, timeMs);
 }
-function checkWin1s() {
+function checkWin() {
 	if (sumArray(allStacks[2]) == winScore) {
 		globalWin = true;
 		alert(`You won!!!`);
-		reload();
+		location.reload();
 	}
 }
 function renderColorCalc(idx) {
@@ -132,8 +135,8 @@ resetButton.addEventListener('click', () => {
 pegs.forEach((el, num) => {
 	el.addEventListener('click', () => {
 		if (isPicking) {
-			pickPeg(num);
 			pickedPegIdx = num;
+			pickPeg(num);
 			render(thisDisc);
 		} else {
 			lastPegIdx = pickedPegIdx;
@@ -173,6 +176,7 @@ function placePeg(num) {
 		alert(
 			`You can't move here. Cannot place any larger disk over a smaller one.`
 		);
+		pickedPegIdx = lastPegIdx;
 	}
 }
 //CHECKS MAIN GAME RULE FOR PLACING DISCS

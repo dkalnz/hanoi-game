@@ -3,21 +3,28 @@
 	background-color: #222222;
 	font-family: 'Helvetica', 'Arial', sans-serif;
 }
+main {
+	display: flex;
+}
 h2,
 h3 {
 	text-align: center;
 	line-height: 2vh;
 }
 h2 {
-	font-size: 3em;
+	font-size: 2.5em;
 	font-family: 'Pacifico', cursive;
 	font-weight: 300;
+	animation: fillin 1s ease 1s 1;
+	animation-fill-mode: backwards;
 }
 h3 {
 	font-family: 'Raleway', sans-serif;
 	font-weight: 300;
 	font-size: 1.5em;
 	line-height: 2rem;
+	animation: fillin 1s ease 1.3s 1;
+	animation-fill-mode: backwards;
 }
 .board {
 	display: flex;
@@ -30,7 +37,7 @@ h3 {
 }
 .pegbox {
 	width: 27vw;
-	height: 100%;
+	height: 95%;
 	margin: 1vw;
 	text-align: center;
 	font-weight: 900;
@@ -71,9 +78,19 @@ footer {
 }
 img {
 	padding: 3vh;
+	animation: fillin 1s ease 1.8s 1;
+	animation-fill-mode: backwards;
 }
-main {
-	display: flex;
+#moveDisplay {
+	margin-top: 0;
+}
+@keyframes fillin {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
 }
 @keyframes dropping {
 	from {
@@ -81,6 +98,23 @@ main {
 	}
 	to {
 		margin-bottom: 0%;
+	}
+}
+.slideUp {
+	animation: slide 800ms ease-out 1;
+	animation-fill-mode: backwards;
+}
+@keyframes slide {
+	0% {
+		opacity: 0;
+		margin-top: 500px;
+	}
+	40% {
+		margin-top: 15vh;
+	}
+	100% {
+		opacity: 1;
+		margin-top: 3px;
 	}
 }
 /* body {
@@ -95,9 +129,6 @@ main {
 	border: 3px solid #d96685;
 	transition: border 300ms ease;
 	transition: border-radius 100ms ease;
-}
-.status {
-	font-size: em;
 }
 #fadein {
 	opacity: 1;
