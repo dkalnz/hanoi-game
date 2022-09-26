@@ -51,6 +51,21 @@ function init() {
 }
 function initBases() {
 	//APPEND BASES
+	alert('Welcome to Watermelons: Tower of Hanoi.');
+	alert(
+		'Objective: Move the tower from the leftmost peg to the right. Rules: you may only pick and place a single disc at a time. No larger-sized disc can be placed upon a smaller one.'
+	);
+	while (startSize != 3 && startSize != 5 && startSize != 7) {
+		startSize = prompt(
+			'How many discs shall you play with? 3 is Beginner, 5 is Intermediate, 7 is Expert. 64 is Legendary (and will break my code... probably). According to the Legend of Brahma, priests have been moving these discs forever.  Choose wisely. 3, 5, or 7:'
+		);
+		if (startSize == 64) {
+			alert(
+				'Silly mortal. 1 move per second of a 64 disc tower while never misplacing a single one would algorithmically take 580 billion years.'
+			);
+			startSize = null;
+		}
+	}
 	for (i = 0; i < 3; i++) {
 		let basePlates = document.createElement('div');
 		basePlates.classList.add('bases');
@@ -58,15 +73,6 @@ function initBases() {
 	}
 }
 function initDiscs() {
-	// alert('Welcome to Watermelons: Tower of Hanoi.');
-	// alert('Objective: Move the tower from the leftmost peg to the right.');
-	// alert(
-	// 	'Rules: you may only pick and place a single disc at a time. No larger-sized disc can be placed upon a smaller one.'
-	// );
-	// startSize = prompt(
-	// 	'How many discs shall you play with? 3 is Beginner, 5 is Intermediate, 7 is Expert. 64 is Legendary (and will break my code... probably). According to the Legend of Brahma, priests have been moving these discs forever. 1 move per second of a 64 disc tower would algorithmically take 580 billion years. Choose wisely. 3, 5, or 7:'
-	// );
-	startSize = 3;
 	for (i = 1; i <= startSize; i++) {
 		stack0.push(i);
 		discCreate = document.createElement('div');
@@ -116,6 +122,7 @@ function checkWin() {
 	if (sumArray(allStacks[2]) == winScore) {
 		globalWin = true;
 		alert(`You won!!!`);
+		globalWin = false;
 		location.reload();
 	}
 }

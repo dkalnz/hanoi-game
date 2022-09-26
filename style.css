@@ -46,6 +46,7 @@ h3 {
 	align-items: center;
 	padding: 1vw;
 	border-radius: 3vw;
+	transition: background-color 300ms ease;
 	/* align-content: center; */
 }
 .bases {
@@ -66,9 +67,9 @@ h3 {
 }
 .dropped {
 	animation-name: dropping;
-	animation-duration: 500ms;
+	animation-duration: 300ms;
 	animation-iteration-count: 1;
-	animation-timing-function: ease-in-out;
+	animation-timing-function: ease-in;
 }
 footer {
 	display: flex;
